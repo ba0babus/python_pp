@@ -47,4 +47,3 @@ elif (len(user_input) == 4):
         print(f"{user_input[0]}.{user_input[2]} ₽")
 else:
     print("Некорректный формат суммы. Введены не все значения")
-
