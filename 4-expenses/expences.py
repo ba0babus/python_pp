@@ -16,7 +16,7 @@ elif (len(split_input) == 4):
     elif len(split_input[2]) != 2:
         print("Некорректный формат суммы. Не верно введены коп")
     else:
-        print(f"{split_input[0]}.{split_input[2]} ₽")
+        print(f"{int(split_input[0])}.{int(split_input[2])} ₽")
 else:
     print("Некорректный формат суммы. Введены не все значения")
 
