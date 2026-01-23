@@ -13,7 +13,7 @@ elif (len(user_input) == 4):
         user_input[2] = "0" + user_input[2]
     if user_input[1] != "руб":
         print("Некорректный формат суммы. Не введены \"руб\"")
-    elif user_input[0].isdigit() == False or user_input[2].isdigit() == False:
+    elif not user_input[0].isdigit() or not user_input[2].isdigit():
         print("Некорректный формат суммы")
     elif user_input[3] != "коп":
         print("Некорректный формат суммы. Не введены \"коп\"")
