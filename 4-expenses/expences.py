@@ -1,8 +1,61 @@
+"""
+Простая утилита учета расходов
+"""
+from typing import List
+
+expensesList: List[float] = [10.2, 10.7, 342.4, 2304.4]
+
+
+def add_expense(expenses: List[float], value: float):
+    """
+    добавляет расход
+    """
+    expenses.append(value)
+    return expenses
+
+def delete_expence(expenses: List[float], index: str) -> List[float]:
+    """
+    удалить расход
+    """
+    if not index.isdigit():
+        print("Введено не число")
+        return expenses
+    if 0 < int(index) > (len(expenses) - 1):
+        print("Индекс не найден")
+        return expenses
+    expenses.pop(int(index))
+    return expenses
+
+def get_total(expenses: List[float]) -> float:
+    """
+    возвращает сумму
+    """
+    return sum(expenses)
+
+def get_average(expenses: List[float]) -> float:
+    """
+    возвращает средний расход
+    """
+    return sum(expenses)/len(expenses)
+
+def print_report(expenses: List[float]):
+    """
+    печатает красивый отчёт
+    """
+    for i, v in enumerate(expenses):
+        print(f"Идекс расхода: {i} ----- Значение расхода {v}")
+
+def get_user_input() -> float:
+    """
+    Вводд пользователя
+    """
+    return float(input("Введите число в формате 11 или 11.00: "))
+
 while True:
     print('''
 Выберите действие:
 1 - Добавить расход
-2 - Показать все расходы
+2 - Печать отчета
 3 - Показать сумму и средний расход
 4 - Удалить расход по номеру
 5 - Выход''')
@@ -12,38 +65,14 @@ while True:
         continue
     match int(userChoise):
         case 1:
-            pass
+            expensesList = add_expense(expensesList, get_user_input())
         case 2:
-            pass
+            print_report(expensesList)
         case 3:
-            pass
+            print(f"Сумма расходов: {get_total(expensesList):.2f}\nСредний расход: {get_average(expensesList):.2f}")
         case 4:
-            pass
+            expensesList = delete_expence(expensesList, input("Введите номер элемента для удаления: "))
         case 5:
             break
         case _:
-            pass
-
-user_input = input("Введите сумму в формате \"10 руб 40 коп\": ")
-user_input = user_input.strip(" ").lower().split()
-
-if (len(user_input) == 2):
-    if user_input[0].isdigit() == False:
-        print("Некорректный формат суммы")
-    elif user_input[1] != "руб":
-        print("Некорректный формат суммы. Не введены \"руб\"")
-    else:
-        print(f"{user_input[0]}.00 ₽")
-elif (len(user_input) == 4):
-    if len(user_input[2]) == 1:
-        user_input[2] = "0" + user_input[2]
-    if user_input[1] != "руб":
-        print("Некорректный формат суммы. Не введены \"руб\"")
-    elif not user_input[0].isdigit() or not user_input[2].isdigit():
-        print("Некорректный формат суммы")
-    elif user_input[3] != "коп":
-        print("Некорректный формат суммы. Не введены \"коп\"")
-    else:
-        print(f"{user_input[0]}.{user_input[2]} ₽")
-else:
-    print("Некорректный формат суммы. Введены не все значения")
+            continue
