@@ -1,3 +1,29 @@
+while True:
+    print('''
+Выберите действие:
+1 - Добавить расход
+2 - Показать все расходы
+3 - Показать сумму и средний расход
+4 - Удалить расход по номеру
+5 - Выход''')
+    userChoise = input()
+    if not userChoise.isdigit():
+        print("Ошибка! Необходимо ввеси число!")
+        continue
+    match int(userChoise):
+        case 1:
+            pass
+        case 2:
+            pass
+        case 3:
+            pass
+        case 4:
+            pass
+        case 5:
+            break
+        case _:
+            pass
+
 user_input = input("Введите сумму в формате \"10 руб 40 коп\": ")
 user_input = user_input.strip(" ").lower().split()
 
