@@ -1,5 +1,4 @@
-#user_input = input("Введите сумму в формате \"10 руб 40 коп\": ")
-user_input = "    10 РУБ 40 коп   "
+user_input = input("Введите сумму в формате \"10 руб 40 коп\": ")
 user_input = user_input.strip(" ")
 user_input = user_input.lower()
 split_input = user_input.split()
