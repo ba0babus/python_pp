@@ -1,20 +1,21 @@
 """
     Простое приложение учета книг
 """
+import sys
 
-books = dict()
-books["The Metamorphosis"] = "Kafka"
-books["The Castle"] = "Kafka"
-books["The Judgment"] = "Kafka"
-books["Arch of Triumph"] = "Remark"
-books["The Night in Lisbon"] = "Remark"
-books["All Quiet on the Western Front"] = "Remark"
-books["Crime and Punishment"] = "Dostoevsky"
-books["The Idiot"] = "Dostoevsky"
-books["Notes from Underground"] = "Dostoevsky"
-books["Philosopher's Stone"] = "Rowling"
-books["Chamber of Secrets"] = "Rowling"
-books["Prisoner of Azkaban"] = "Rowling"
+library = dict()
+library["The Metamorphosis"] = "Kafka"
+library["The Castle"] = "Kafka"
+library["The Judgment"] = "Kafka"
+library["Arch of Triumph"] = "Remark"
+library["The Night in Lisbon"] = "Remark"
+library["All Quiet on the Western Front"] = "Remark"
+library["Crime and Punishment"] = "Dostoevsky"
+library["The Idiot"] = "Dostoevsky"
+library["Notes from Underground"] = "Dostoevsky"
+library["Philosopher's Stone"] = "Rowling"
+library["Chamber of Secrets"] = "Rowling"
+library["Prisoner of Azkaban"] = "Rowling"
 
 def get_uniq_book(books_list: dict):
     set_books = set()
@@ -28,5 +29,25 @@ def get_uniq_author(books_list: dict):
         set_authors.add(v)
     print(set_authors)
 
-get_uniq_book(books_list=books)
-get_uniq_author(books_list=books)
+def sort_entity(entity:str, lib: dict):
+    list_entitys = list(map(lambda x: f"{x} - {lib.get(x)}", lib))
+    if entity == "author":
+        sorted_entitys = sorted(list_entitys, key=lambda x: x.split(' - ')[1])
+    elif entity == "book":
+        sorted_entitys = sorted(list_entitys)
+    else:
+        print("Сущность не найдена")
+        sorted_entitys = []
+    return sorted_entitys
+
+def filter_entity(entity:str, lib: dict):
+    filtered_list = list(filter(lambda x: lib[x] == entity, lib))
+    res = list(map(lambda x: f"{x} - {lib.get(x)}", filtered_list))
+    return res
+
+if sys.argv[1] == "sort":
+    print(sort_entity(sys.argv[2], library))
+
+if sys.argv[1] == "filter":
+    print(filter_entity(sys.argv[2], library))
+    
