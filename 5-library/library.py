@@ -3,6 +3,9 @@
 """
 import sys
 
+class LibraryError(Exception):
+    pass
+
 library = dict()
 library["The Metamorphosis"] = "Kafka"
 library["The Castle"] = "Kafka"
@@ -45,9 +48,24 @@ def filter_entity(entity:str, lib: dict):
     res = list(map(lambda x: f"{x} - {lib.get(x)}", filtered_list))
     return res
 
-if sys.argv[1] == "sort":
-    print(sort_entity(sys.argv[2], library))
+try:
+    if sys.argv[1] not in ["sort", "filter"]:
+        raise LibraryError("Передана кривая команда")
 
-if sys.argv[1] == "filter":
-    print(filter_entity(sys.argv[2], library))
-    
+    if sys.argv[1] == "sort":
+        if sys.argv[2] not in ["book", "author"]:
+            raise LibraryError("Передан кривой параметр сортировки")
+        else:
+            print(sort_entity(sys.argv[2], library))
+
+    if sys.argv[1] == "filter":
+        if len(sys.argv) > 2 and sys.argv[2].strip():
+            print(filter_entity(sys.argv[2], library))
+        else:
+            raise LibraryError("Не передан текст фильтра")
+
+except IndexError:
+    print("Ошибка парсинга аргументов командной строки")
+
+except LibraryError as e:
+    print("Возникла ошибка:", e)
