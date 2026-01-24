@@ -54,7 +54,7 @@ try:
 
     if sys.argv[1] == "sort":
         if sys.argv[2] not in ["book", "author"]:
-            raise LibraryError("Неизвестный объект сортировки")
+            raise LibraryError("Передан кривой параметр сортировки")
         else:
             print(sort_entity(sys.argv[2], library))
 
