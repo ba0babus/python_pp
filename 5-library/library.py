@@ -50,7 +50,7 @@ def filter_entity(entity:str, lib: dict):
 
 try:
     if sys.argv[1] not in ["sort", "filter"]:
-        raise LibraryError("Неизвестная операция")
+        raise LibraryError("Передана кривая команда")
 
     if sys.argv[1] == "sort":
         if sys.argv[2] not in ["book", "author"]:
@@ -59,9 +59,10 @@ try:
             print(sort_entity(sys.argv[2], library))
 
     if sys.argv[1] == "filter":
-        if sys.argv[2] is "":
-            raise LibraryError("Отсутсвует текст фильтра")
-        print(filter_entity(sys.argv[2], library))
+        if len(sys.argv) > 2 and sys.argv[2].strip():
+            print(filter_entity(sys.argv[2], library))
+        else:
+            raise LibraryError("Не передан текст фильтра")
 
 except IndexError:
     print("Ошибка парсинга аргументов командной строки")
