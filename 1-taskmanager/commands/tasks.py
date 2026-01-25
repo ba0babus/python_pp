@@ -66,4 +66,4 @@ import datetime
 
 print(datetime.timedelta(days=7))
 
-datetime.date.today == datetime.datetime.now()
+if datetime.date.today() == datetime.datetime.now()
