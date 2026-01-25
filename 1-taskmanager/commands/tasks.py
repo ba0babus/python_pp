@@ -1,11 +1,13 @@
-from typing import TypedDict
+from typing import TypedDict, Optional
+from datetime import date,datetime
 
 class Task(TypedDict):
     id: int
     title: str
     severity: str
-    tags: list[str]
+    tags: Optional[list[str]] # опциональный параметр, либо лист либо none
     status: str
+    due: Optional[date]
 
 task: Task = {
     "id": 1,
@@ -13,9 +15,10 @@ task: Task = {
     "severity": "low",
     "tags": ["home", "sometag"],
     "status": "new",
+    "due": None
 }
 
-def make_task(id: int, title: str, status: str = "new",priority: str = "medium", text: list[str] = [], tags: list[str] = []):
+def make_task(id: int, title: str, due: Optional[date] = None, status: str = "new",priority: str = "medium", text: list[str] = [], tags:  Optional[list[str]] = None):
     try:
         if priority not in ["low", "medium", "high"]:
             raise ValueError("Некорректное значение приоритета задачи")
@@ -26,32 +29,41 @@ def make_task(id: int, title: str, status: str = "new",priority: str = "medium",
             "severity": priority,
             "tags": tags,
             "status": status,
+            "due": due
         }
         return new_task
     except ValueError as e:
         print(e)
 
+def parse_args(args: list[str]):
+    if not args:
+        raise ValueError("Нужно больше аргументов")
+    title = args[0]
+    prio, due, tags = "med", None, None
+    for arg in args[1:0]:
+        if arg.startswith("prio="):
+            prio = arg.split("=", 1)[1]
+        elif arg.startswith("due="):
+            due_str = arg.split("=", 1)[1]
 
-# Цель Упражнения: Создать функцию make_task, которая принимает следующие параметры:
-# id: идентификатор задачи (целое число).
-# title: название задачи (строка).
-# priority: приоритет задачи (строка, со значением по умолчанию «medium»).
-# text: список строк, по умолчанию пустой.
-# Статус задачи задается по умолчанию как «new».
-# Опциональные Параметры:
-# tags: Опциональные теги, по умолчанию это пустой список.
-# Реализация Функции:
 
 
-# Функция принимает параметры и создает новый объект задачи типа Task. +++
-# Задается валидация для параметра priority, допускаются только значения «low», «medium» или «high». Если другое значение, выбрасывается ошибка ValueError. +++
-# title очищается от пробелов с помощью метода strip(). +++
+# Форматирует дату в строку
+# Тип может быть или заданным, или None
 
-# Проблемы и Решения:
-# Рассмотрено, как можно работать с параметрами по умолчанию и типизациями.
-# Для списка text был рассмотрен вариант с None, но в конечном счете выбран пустой список, чтобы избежать сложностей с типизацией.
-# Проверка Работы:
-# Пример использования функции make_task, создав задачу и распечатав её.
-# Демонстрация обработки неправильного приоритета с выбросом соответствующей ошибки.
-# Дальнейшее Действие:
-# Возможно, потребуется добавить обработку ошибок и валидацию в более сложных сценариях, например, с использованием цикла while.
+# datetime
+# 
+# 
+# 
+# 5 days
+
+# 
+# 
+# 
+# 
+
+import datetime
+
+print(datetime.timedelta(days=7))
+
+datetime.date.today == datetime.datetime.now()

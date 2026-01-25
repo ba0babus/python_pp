@@ -1,4 +1,5 @@
 from commands.help import get_help_info
+import commands.tasks
 def main():
     print("Simple task manager")
     while True:
@@ -10,7 +11,7 @@ def main():
                 case "help":
                     get_help_info()
                 case "add":
-                    pass
+                    commands.tasks.parse_args(args)
                 case "remove":
                     pass
                 case "edit":
